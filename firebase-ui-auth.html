@@ -20,7 +20,7 @@
         notify:true,
       },
     },
-    ready: function(undefined){
+    ready: function(){
       var that = this
       var trys = 0 
       function auth() {
@@ -32,7 +32,7 @@
           })
         } else {
           console.log(trys++)
-          setTimeout(auth, 500);
+          setTimeout(auth, 500)
         }
       }
       auth()
