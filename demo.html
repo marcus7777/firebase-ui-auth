@@ -8,6 +8,18 @@
   </head>
   <body>
     <h3>firebase-ui-auth Demo</h3>
-    <firebase-ui-auth ></firebase-ui-auth>
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDaJfXWs8Hy2ZKTWEzU8gSVLC5D_JrbeLg",
+        authDomain: "open-elements.firebaseapp.com",
+        databaseURL: "https://open-elements.firebaseio.com",
+        storageBucket: "open-elements.appspot.com",
+        messagingSenderId: "508760526273"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <firebase-ui-auth></firebase-ui-auth>
   </body>
 </html>
