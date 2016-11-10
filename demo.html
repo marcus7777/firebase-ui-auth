@@ -20,8 +20,15 @@
   <body>
     <h3>firebase-ui-auth Demo</h3>
     <template is="dom-bind" id="app">
-      <firebase-ui-auth user="{{user}}"></firebase-ui-auth>
+      <firebase-ui-auth user="{{user}}" id="auth"></firebase-ui-auth>
       [[user.displayName]]
+      <button on-tap="out"></button>
     </template>
+    <script>
+      var app = document.querySelector('#app');
+      app.out = function () {
+        app.$.auth.signOut()
+      }
+    </script>
   </body>
 </html>
