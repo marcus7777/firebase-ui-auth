@@ -1,0 +1,13 @@
+{
+  "name": "firebase-ui-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "firebase-ui-auth.html",
+  "keywords": [
+    "polymer",
+    "web-components"
+  ],
+  "dependencies": {
+    "polymer": "*"
+  }
+}

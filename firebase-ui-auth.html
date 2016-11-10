@@ -1,0 +1,37 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--
+  `<firebase-ui-auth></firebase-ui-auth>` HTML wrapper for firebase-ui-auth.js
+  @demo demo.html
+-->
+<dom-module id="firebase-ui-auth">
+  <template>
+    <script src="https://www.gstatic.com/firebasejs/ui/live/1.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/1.0/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    
+    <div id="firebaseui-auth-container"></div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "firebase-ui-auth",
+    ready: function(undefined){
+      var that = this
+      var trys = 0 
+      function auth() {
+        if (firebase) {
+          firebase.auth().onAuthStateChanged(function(user) {
+            that.user = user
+          }, function(error) {
+            console.log(error)
+          })
+        } else {
+          console.log(trys++)
+          setTimeout(auth, 500);
+        }
+      }
+      auth()
+      
+    },
+  })
+</script>
