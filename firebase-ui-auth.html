@@ -70,7 +70,7 @@
           }
           a.href = url
           return a.href
-	      };
+        };
       })();
       var uiConfig = {
         signInSuccessUrl: getAbsoluteUrl(signInSuccessUrl),
@@ -78,8 +78,11 @@
         tosUrl: getAbsoluteUrl(tosUrl),
       }
       var ui = new firebaseui.auth.AuthUI(firebase.auth())
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig)
+      
+      if (!user) {
+        ui.start('#firebaseui-auth-container', uiConfig)
+      }
+      
       return ui
     },
   })
