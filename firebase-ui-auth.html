@@ -50,7 +50,7 @@
             that.signInOptions = that.signIn.map(function(signInProvider) {
               if ( firebase.auth.hasOwnProperty(signInProvider) ) {
                 return firebase.auth[signInProvider].PROVIDER_ID
-	            }
+              }
             })
             that.user = user
           }, function(error) {
@@ -70,8 +70,8 @@
 		      if (!a) {
             a = document.createElement('a')
           }
-		      a.href = url
-		      return a.href
+          a.href = url
+          return a.href
 	      };
       })();
       var uiConfig = {
