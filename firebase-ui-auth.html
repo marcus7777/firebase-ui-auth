@@ -50,7 +50,7 @@
             that.signInOptions = that.signIn.map(function(signInProvider) {
               if ( firebase.auth.hasOwnProperty(signInProvider) ) {
                 return firebase.auth[signInProvider].PROVIDER_ID
-	      }
+	            }
             })
             that.user = user
           }, function(error) {
