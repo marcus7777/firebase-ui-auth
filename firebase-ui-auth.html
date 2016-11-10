@@ -39,27 +39,18 @@
       }
     },
     ready: function(){
-      console.log("ready")
       var that = this
       var trys = 0 
-      function auth() {
-        if (firebase) {
-          firebase.auth().onAuthStateChanged(function(user) {
-            that.signInOptions = that.signIn.map(function(signInProvider) {
-              if ( firebase.auth.hasOwnProperty(signInProvider) ) {
-                return firebase.auth[signInProvider].PROVIDER_ID
-              }
-            })
-            that.user = user
-          }, function(error) {
-            console.log(error)
-          })
-        } else {
-          console.log(trys++)
-          setTimeout(auth, 500)
-        }
-      }
-      auth()
+      firebase.auth().onAuthStateChanged(function(user) {
+        that.signInOptions = that.signIn.map(function(signInProvider) {
+          if ( firebase.auth.hasOwnProperty(signInProvider) ) {
+            return firebase.auth[signInProvider].PROVIDER_ID
+          }
+        })
+        that.user = user
+      }, function(error) {
+        console.log(error)
+      })
     },
     getUi: function(signInSuccessUrl,signInOptions,tosUrl,user){
       var getAbsoluteUrl = (function() {
