@@ -48,7 +48,9 @@
         if (firebase) {
           firebase.auth().onAuthStateChanged(function(user) {
             that.signInOptions = that.signIn.map(function(signInProvider) {
-              return firebase.auth[signInProvider].PROVIDER_ID
+              if ( firebase.auth.hasOwnProperty(signInProvider) ) {
+                return firebase.auth[signInProvider].PROVIDER_ID
+	      }
             })
             that.user = user
           }, function(error) {
