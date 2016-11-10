@@ -5,21 +5,23 @@
     <title>firebase-ui-auth demo</title>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="firebase-ui-auth.html">
-  </head>
-  <body>
-    <h3>firebase-ui-auth Demo</h3>
     <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
     <script>
       // Initialize Firebase
-      var config = {
+      firebase.initializeApp({
         apiKey: "AIzaSyDaJfXWs8Hy2ZKTWEzU8gSVLC5D_JrbeLg",
         authDomain: "open-elements.firebaseapp.com",
         databaseURL: "https://open-elements.firebaseio.com",
         storageBucket: "open-elements.appspot.com",
         messagingSenderId: "508760526273"
-      };
-      firebase.initializeApp(config);
+      });
     </script>
-    <firebase-ui-auth></firebase-ui-auth>
+  </head>
+  <body>
+    <h3>firebase-ui-auth Demo</h3>
+    <template is="dom-bind" id="app">
+      <firebase-ui-auth user="{{user}}"></firebase-ui-auth>
+      [[user.displayName]]
+    </template>
   </body>
 </html>
