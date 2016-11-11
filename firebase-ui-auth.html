@@ -52,7 +52,7 @@
         console.log(error)
       })
     },
-    getUi: function(signInSuccessUrl,signInOptions,tosUrl,user){
+    getUi: function(signInSuccessUrl,signInOptions,tosUrl){
       var getAbsoluteUrl = (function() {
         var a
         return function(url) {
@@ -69,11 +69,7 @@
         tosUrl: getAbsoluteUrl(tosUrl),
       }
       var ui = new firebaseui.auth.AuthUI(firebase.auth())
-      
-      if (!user) {
-        ui.start('#firebaseui-auth-container', uiConfig)
-      }
-      
+      ui.start('#firebaseui-auth-container', uiConfig)
       return ui
     },
     signOut: function() {
