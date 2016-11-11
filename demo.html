@@ -21,7 +21,7 @@
     <h3>firebase-ui-auth Demo</h3>
     <template is="dom-bind" id="app">
       <firebase-ui-auth user="{{user}}" id="auth"></firebase-ui-auth>
-      [[user.displayName]]
+      {{user.displayName}}
       <button on-tap="out">logout</button>
     </template>
     <script>
