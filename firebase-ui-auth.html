@@ -7,7 +7,7 @@
   -->
 <dom-module id="firebase-ui-auth">
   <template>
-    <div></div>
+    <div id="firebaseui-auth-container"></div>
   </template>
 </dom-module>
 <script>
@@ -69,7 +69,7 @@
         tosUrl: getAbsoluteUrl(tosUrl),
       }
       var ui = new firebaseui.auth.AuthUI(firebase.auth())
-      ui.start('firebase-ui-auth', uiConfig)
+      ui.start(this.$["firebaseui-auth-container"], uiConfig)
       return ui
     },
     signOut: function() {
