@@ -56,6 +56,7 @@
         user.getToken().then(function(accessToken) {
           that.user = {
             displayName: displayName,
+            primaryName: email,
             email: email,
             emailVerified: emailVerified,
             photoURL: photoURL,
