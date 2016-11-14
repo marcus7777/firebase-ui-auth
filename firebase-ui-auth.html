@@ -47,6 +47,23 @@
             return firebase.auth[signInProvider].PROVIDER_ID
           }
         })
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        user.getToken().then(function(accessToken) {
+          that.user = {
+            displayName: displayName,
+            email: email,
+            emailVerified: emailVerified,
+            photoURL: photoURL,
+            uid: uid,
+            accessToken: accessToken,
+            providerData: providerData,
+           }
+         });
         that.user = user
       }, function(error) {
         console.log(error)
