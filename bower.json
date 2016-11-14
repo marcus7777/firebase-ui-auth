@@ -8,6 +8,7 @@
     "web-components"
   ],
   "dependencies": {
-    "polymer": "*"
+    "polymer": "*",
+    "image-base64": "marcus7777/image-base64"
   }
 }
