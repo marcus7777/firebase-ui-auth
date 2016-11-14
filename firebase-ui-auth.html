@@ -8,6 +8,9 @@
 <dom-module id="firebase-ui-auth">
   <template>
     <div id="firebaseui-auth-container"></div>
+    <template is="dom-if" if="[[user.photoURL]]">
+      <image-base64 url="[[user.photoURL]]" width="[[widthPhoto]]" base64="{{user.photoAsUrl}}"></image-base64>
+    </template>
   </template>
 </dom-module>
 <script>
@@ -16,6 +19,9 @@
     properties:{
       user:{
         notify:true,
+      },
+      widthPhoto:{
+        value: 75
       },
       signInSuccessUrl:{
         value: "/"
