@@ -66,9 +66,9 @@
         })
         var providerData = user.providerData
         var displayName = user.displayName || user.providerData[0].displayName
-        var email = user.email
+        var email = user.email || user.providerData[0].email
         var emailVerified = user.emailVerified
-        var photoURL = user.photoURL
+        var photoURL = user.photoURL || user.providerData[0].photoURL
         var uid = user.uid || user.providerData[0].uid
         
         user.getToken().then(function(accessToken) {
