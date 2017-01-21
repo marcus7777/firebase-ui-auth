@@ -58,7 +58,7 @@
     ready: function(){
       var that = this
       var trys = 0 
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function(user) {if (user) {
         that.signInOptions = that.signIn.map(function(signInProvider) {
           if ( firebase.auth.hasOwnProperty(signInProvider) ) {
             return firebase.auth[signInProvider].PROVIDER_ID
@@ -84,7 +84,7 @@
            }
          });
         that.user = user
-      }, function(error) {
+      }}, function(error) {
         console.log(error)
       })
     },
