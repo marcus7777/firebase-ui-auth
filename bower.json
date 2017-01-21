@@ -9,6 +9,7 @@
   ],
   "dependencies": {
     "polymer": "*",
+    "firebaseui": "*",
     "image-base64": "marcus7777/image-base64"
   }
 }
