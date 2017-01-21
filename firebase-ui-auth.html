@@ -58,33 +58,36 @@
     ready: function(){
       var that = this
       var trys = 0 
-      firebase.auth().onAuthStateChanged(function(user) {if (user) {
+      firebase.auth().onAuthStateChanged(function(user) {
+        
         that.signInOptions = that.signIn.map(function(signInProvider) {
           if ( firebase.auth.hasOwnProperty(signInProvider) ) {
             return firebase.auth[signInProvider].PROVIDER_ID
           }
         })
-        var providerData = user.providerData
-        var displayName = user.displayName || user.providerData[0].displayName
-        var email = user.email || user.providerData[0].email
-        var emailVerified = user.emailVerified
-        var photoURL = user.photoURL || user.providerData[0].photoURL
-        var uid = user.uid || user.providerData[0].uid
+        if (user) {
+          var providerData = user.providerData
+          var displayName = user.displayName || user.providerData[0].displayName
+          var email = user.email || user.providerData[0].email
+          var emailVerified = user.emailVerified
+          var photoURL = user.photoURL || user.providerData[0].photoURL
+          var uid = user.uid || user.providerData[0].uid
         
-        user.getToken().then(function(accessToken) {
-          that.user = {
-            displayName: displayName,
-            primaryName: email,
-            email: email,
-            emailVerified: emailVerified,
-            photoURL: photoURL,
-            uid: uid,
-            accessToken: accessToken,
-            providerData: providerData,
-           }
-         });
-        that.user = user
-      }}, function(error) {
+          user.getToken().then(function(accessToken) {
+            that.user = {
+              displayName: displayName,
+              primaryName: email,
+              email: email,
+              emailVerified: emailVerified,
+              photoURL: photoURL,
+              uid: uid,
+              accessToken: accessToken,
+              providerData: providerData,
+            }
+          });
+          that.user = user
+        }
+      }, function(error) {
         console.log(error)
       })
     },
