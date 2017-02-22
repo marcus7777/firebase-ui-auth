@@ -62,7 +62,7 @@
       var that = this
       var trys = 0 
       firebase.auth().onAuthStateChanged(function(user) {
-        var anony
+        var anony = false
         that.signInOptions = that.signIn.map(function(signInProvider) {
           if ( firebase.auth.hasOwnProperty(signInProvider) ) {
             return firebase.auth[signInProvider].PROVIDER_ID
@@ -101,7 +101,7 @@
               }
             })
           }
-        } else {
+        } else if (anony) {
           that.anony = true
         }
       }, function(error) {
