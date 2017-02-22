@@ -47,13 +47,15 @@
         ],
         type: Array
       },
-      
       tosUrl:{
         value: "/"
       },
       ui: {
         notify:true,
-        computed: "getUi(signInSuccessUrl,signInOptions,tosUrl)"
+        computed: "getUi(signInSuccessUrl,signInOptions,tosUrl)",
+      },
+      _loginA:{
+        computed: "loginA(anony)",
       }
     },
     ready: function(){
@@ -64,7 +66,7 @@
           if ( firebase.auth.hasOwnProperty(signInProvider) ) {
             return firebase.auth[signInProvider].PROVIDER_ID
           } else if (signInProvider === "Anonymous") {
-            that.
+            that.anony = true
           }
         })
         if (user) {
