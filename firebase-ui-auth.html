@@ -43,10 +43,11 @@
           "FacebookAuthProvider",
           "TwitterAuthProvider",
           "GithubAuthProvider",
-          "EmailAuthProvider"
+          "EmailAuthProvider",
         ],
         type: Array
       },
+      
       tosUrl:{
         value: "/"
       },
@@ -59,10 +60,11 @@
       var that = this
       var trys = 0 
       firebase.auth().onAuthStateChanged(function(user) {
-        
         that.signInOptions = that.signIn.map(function(signInProvider) {
           if ( firebase.auth.hasOwnProperty(signInProvider) ) {
             return firebase.auth[signInProvider].PROVIDER_ID
+          } else if (signInProvider === "Anonymous") {
+            that.
           }
         })
         if (user) {
@@ -91,6 +93,13 @@
         console.log(error)
       })
     },
+    loginA: function(anony) {
+      if (anony) {
+        firebase.auth().signInAnonymously().catch(function(error) {
+          console.log(error)
+        })
+      }
+    },
     getUi: function(signInSuccessUrl,signInOptions,tosUrl){
       var getAbsoluteUrl = (function() {
         var a
@@ -100,8 +109,8 @@
           }
           a.href = url
           return a.href
-        };
-      })();
+        }
+      })()
       var uiConfig = {
         signInSuccessUrl: getAbsoluteUrl(signInSuccessUrl),
         signInOptions: signInOptions,
