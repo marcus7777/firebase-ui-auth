@@ -70,26 +70,36 @@
           }
         })
         if (user) {
-          var providerData = user.providerData
-          var displayName = user.displayName || user.providerData[0].displayName
-          var email = user.email || user.providerData[0].email
-          var emailVerified = user.emailVerified
-          var photoURL = user.photoURL || user.providerData[0].photoURL
-          var uid = user.uid || user.providerData[0].uid
+          if (!user.isAnonymous) {
+            var providerData = user.providerData
+            var displayName = user.displayName || user.providerData[0].displayName
+            var email = user.email || user.providerData[0].email
+            var emailVerified = user.emailVerified
+            var photoURL = user.photoURL || user.providerData[0].photoURL
+            var uid = user.uid || user.providerData[0].uid
         
-          user.getToken().then(function(accessToken) {
-            that.user = {
-              displayName: displayName,
-              primaryName: email,
-              email: email,
-              emailVerified: emailVerified,
-              photoURL: photoURL,
-              uid: uid,
-              accessToken: accessToken,
-              providerData: providerData,
-            }
-          });
-          that.user = user
+            user.getToken().then(function(accessToken) {
+              that.user = {
+                displayName: displayName,
+                primaryName: email,
+                email: email,
+                emailVerified: emailVerified,
+                photoURL: photoURL,
+                uid: uid,
+                accessToken: accessToken,
+                providerData: providerData,
+              }
+            })
+          } else {
+            var uid = user.uid
+            user.getToken().then(function(accessToken) {
+              that.user = {
+                uid: uid,
+                accessToken: accessToken,
+                isAnonymous: true,
+              }
+            })
+          }
         }
       }, function(error) {
         console.log(error)
