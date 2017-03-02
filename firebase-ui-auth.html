@@ -34,6 +34,9 @@
       widthPhoto:{
         value: 75
       },
+      defaultPhotoURL:{
+        value:""
+      },
       signInSuccessUrl:{
         value: "/"
       },
@@ -76,7 +79,7 @@
             var displayName = user.displayName || user.providerData[0].displayName
             var email = user.email || user.providerData[0].email
             var emailVerified = user.emailVerified
-            var photoURL = user.photoURL || user.providerData[0].photoURL
+            var photoURL = user.photoURL || user.providerData[0].photoURL || that.defaultPhotoURL
             var uid = user.uid || user.providerData[0].uid
         
             user.getToken().then(function(accessToken) {
@@ -93,9 +96,11 @@
             })
           } else {
             var uid = user.uid
+            var photoURL = user.photoURL || user.providerData[0].photoURL || that.defaultPhotoURL
             user.getToken().then(function(accessToken) {
               that.user = {
                 uid: uid,
+                photoURL: photoURL,
                 accessToken: accessToken,
                 isAnonymous: true,
               }
