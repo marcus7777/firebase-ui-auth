@@ -11,8 +11,10 @@
   <template>
     <div id="firebaseui-auth-container"></div>
     <template is="dom-if" if="[[user]]">
-      <template is="dom-if" if="[[getPhoto]]">
-        <image-base64 url="[[user.photoURL]]" width="[[widthPhoto]]" base64="{{photo}}"></image-base64>
+      <template is="dom-if" if="[[!local]]">
+        <template is="dom-if" if="[[getPhoto]]">
+          <image-base64 url="[[user.photoURL]]" width="[[widthPhoto]]" base64="{{photo}}"></image-base64>
+        </template>
       </template>
    </template>
   </template>
@@ -64,6 +66,11 @@
     ready: function(){
       var that = this
       var trys = 0 
+      if (window.location.host == "localhost"){
+        this.local = true   
+      } else {
+        this.local = false 
+      }
       firebase.auth().onAuthStateChanged(function(user) {
         var anony = false
         that.signInOptions = that.signIn.map(function(signInProvider) {
