@@ -66,7 +66,7 @@
     ready: function(){
       var that = this
       var trys = 0 
-      if (window.location.host == "localhost"){
+      if (window.location.host.startsWith("localhost")){
         this.local = true   
       } else {
         this.local = false 
