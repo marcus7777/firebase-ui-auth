@@ -11,6 +11,6 @@
     "polymer": "*",
     "firebaseui": "*",
     "image-base64": "marcus7777/image-base64",
-    "firebase":"firebase/firebase-bower"
+    "firebase":"firebase/firebase-bower#v3.7.4"
   }
 }
