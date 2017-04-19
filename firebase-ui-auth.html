@@ -103,7 +103,10 @@
             })
           } else {
             var uid = user.uid
-            var photoURL = user.photoURL || user.providerData[0].photoURL || that.defaultPhotoURL
+            var photoURL = user.photoURL 
+            if (user.providerData.length && !user.photoURL) {
+              photoURL = user.providerData[0].photoURL || that.defaultPhotoURL
+            }
             user.getToken().then(function(accessToken) {
               that.user = {
                 uid: uid,
