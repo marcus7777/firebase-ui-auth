@@ -49,6 +49,7 @@
           "TwitterAuthProvider",
           "GithubAuthProvider",
           "EmailAuthProvider",
+          // "Anonymous",
         ],
         type: Array
       },
@@ -155,6 +156,13 @@
       this.user = null
     },
     trySignIn: function() {
+      this.fire("switching", this.user)
+      this.user = false
+      this.signIn = this.signIn.map(function(signInProvider) {
+        if (signInProvider !== "Anonymous") {
+          return signInProvider
+        }
+      })
       firebase.auth().signIn()
       this.user = null
     },
