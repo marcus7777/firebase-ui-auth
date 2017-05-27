@@ -72,7 +72,7 @@
       }
     },
     ready: function(){
-      if (firebase) {
+      try { if (firebase) {
         var that = this
         var trys = 0 
         if (window.location.host.startsWith("localhost")){
@@ -132,7 +132,7 @@
         }, function(error) {
           console.log(error)
         })
-      } else {
+      } } catch {
         this.noFirebase = true
       }
     },
