@@ -16,7 +16,10 @@
           <image-base64 url="[[user.photoURL]]" width="[[widthPhoto]]" base64="{{photo}}"></image-base64>
         </template>
       </template>
-   </template>
+    </template>
+    <template is="dom-if" if="[[noFirebase]]">
+      [[noFirebaseMsg]]
+    </template>
   </template>
 </dom-module>
 <script>
@@ -42,6 +45,9 @@
       signInSuccessUrl:{
         value: "/"
       },
+      noFirebaseMsg:{
+        value: "Need firebase to log in"
+      },
       signIn :{
         value:[
           "GoogleAuthProvider",
@@ -66,65 +72,69 @@
       }
     },
     ready: function(){
-      var that = this
-      var trys = 0 
-      if (window.location.host.startsWith("localhost")){
-        this.local = true   
-      } else {
-        this.local = false 
-      }
-      firebase.auth().onAuthStateChanged(function(user) {
-        var anony = false
-        that.signInOptions = that.signIn.map(function(signInProvider) {
-          if ( firebase.auth.hasOwnProperty(signInProvider) ) {
-            return firebase.auth[signInProvider].PROVIDER_ID
-          } else if (signInProvider === "Anonymous") {
-            anony = true
-          }
-        })
-        if (user) {
-          if (!user.isAnonymous) {
-            var providerData = user.providerData
-            var displayName = user.displayName || user.providerData[0].displayName
-            var email = user.email || user.providerData[0].email
-            var emailVerified = user.emailVerified
-            var photoURL = user.photoURL || user.providerData[0].photoURL || that.defaultPhotoURL
-            var uid = user.uid || user.providerData[0].uid
-        
-            user.getToken().then(function(accessToken) {
-              that.user = {
-                displayName: displayName,
-                primaryName: email,
-                email: email,
-                emailVerified: emailVerified,
-                photoURL: photoURL,
-                uid: uid,
-                accessToken: accessToken,
-                providerData: providerData,
-              }
-            })
-          } else {
-            var uid = user.uid
-            var photoURL = user.photoURL 
-            if (user.providerData.length && !user.photoURL) {
-              photoURL = user.providerData[0].photoURL || that.defaultPhotoURL
-            }
-            user.getToken().then(function(accessToken) {
-              that.user = {
-                uid: uid,
-                displayName: "",
-                photoURL: photoURL,
-                accessToken: accessToken,
-                isAnonymous: true,
-              }
-            })
-          }
-        } else if (anony) {
-          that.anony = true
+      if (firebase) {
+        var that = this
+        var trys = 0 
+        if (window.location.host.startsWith("localhost")){
+          this.local = true   
+        } else {
+          this.local = false 
         }
-      }, function(error) {
-        console.log(error)
-      })
+        firebase.auth().onAuthStateChanged(function(user) {
+          var anony = false
+          that.signInOptions = that.signIn.map(function(signInProvider) {
+            if ( firebase.auth.hasOwnProperty(signInProvider) ) {
+              return firebase.auth[signInProvider].PROVIDER_ID
+            } else if (signInProvider === "Anonymous") {
+              anony = true
+            }
+          }) 
+          if (user) {
+            if (!user.isAnonymous) {
+              var providerData = user.providerData
+              var displayName = user.displayName || user.providerData[0].displayName
+              var email = user.email || user.providerData[0].email
+              var emailVerified = user.emailVerified
+              var photoURL = user.photoURL || user.providerData[0].photoURL || that.defaultPhotoURL
+              var uid = user.uid || user.providerData[0].uid
+        
+              user.getToken().then(function(accessToken) {
+                that.user = {
+                  displayName: displayName,
+                  primaryName: email,
+                  email: email,
+                  emailVerified: emailVerified,
+                  photoURL: photoURL,
+                  uid: uid,
+                  accessToken: accessToken,
+                  providerData: providerData,
+                }
+              })
+            } else {
+              var uid = user.uid
+              var photoURL = user.photoURL 
+              if (user.providerData.length && !user.photoURL) {
+                photoURL = user.providerData[0].photoURL || that.defaultPhotoURL
+              }
+              user.getToken().then(function(accessToken) {
+                that.user = {
+                  uid: uid,
+                  displayName: "",
+                  photoURL: photoURL,
+                  accessToken: accessToken,
+                  isAnonymous: true,
+                }
+              })
+            }
+          } else if (anony) {
+            that.anony = true
+          }
+        }, function(error) {
+          console.log(error)
+        })
+      } else {
+        this.noFirebase = true
+      }
     },
     loginA: function(anony) {
       if (anony) {
