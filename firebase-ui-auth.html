@@ -98,7 +98,7 @@
               var photoURL = user.photoURL || user.providerData[0].photoURL || that.defaultPhotoURL
               var uid = user.uid || user.providerData[0].uid
         
-              user.getToken().then(function(accessToken) {
+              user.getIdToken().then(function(accessToken) {
                 that.user = {
                   displayName: displayName,
                   primaryName: email,
