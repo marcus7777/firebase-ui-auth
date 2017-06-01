@@ -26,13 +26,31 @@
       <template is="dom-if" if="{{user}}">
         [[user.displayName]]
       </template>
+      
       <button on-tap="out">logout</button>
+      <button on-tap="write"> write test</button>
+      <button on-tap="read">  read  test</button>
+      
     </template>
     <script>
       var app = document.querySelector('#app');
       app.out = function () {
         app.$.auth.signOut()
       }
+      app.write = function () {
+        var userId = firebase.auth().currentUser.uid
+        var newTestKey = firebase.database().ref().child('posts').push().key;
+        var updates = {}
+        updates['/tests/' + newTestKey] = 1;
+        updates['/user-tests/' + uid + '/' + newTestKey] = 1;
+        alert("write: "+firebase.database().ref().update(updates))
+      }
+      app.read = function () {
+        firebase.database().ref('/read/').once('value').then(function(snapshot) {
+          alert("read: "+ snapshot.val())
+        })
+      }
+      
     </script>
   </body>
 </html>
