@@ -42,7 +42,7 @@
         var newTestKey = firebase.database().ref().child('posts').push().key;
         var updates = {}
         updates['/tests/' + newTestKey] = 1;
-        updates['/user-tests/' + uid + '/' + newTestKey] = 1;
+        updates['/user-tests/' + userId + '/' + newTestKey] = 1;
         alert("write: "+firebase.database().ref().update(updates))
       }
       app.read = function () {
