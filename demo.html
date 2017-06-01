@@ -25,9 +25,9 @@
       <firebase-ui-auth user="{{user}}" sign-in-success-url="" id="auth"></firebase-ui-auth>
       <template is="dom-if" if="{{user}}">
         [[user.displayName]]
+        <button on-tap="out"> logout </button>
       </template>
       
-      <button on-tap="out">logout</button>
       <button on-tap="write"> write test</button>
       <button on-tap="read">  read  test</button>
       
