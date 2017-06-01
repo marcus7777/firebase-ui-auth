@@ -45,7 +45,7 @@
         }
         updates['/tests/' + newTestKey] = 1;
         firebase.database().ref().update(updates).then(function(snapshot) {
-          alert("write: "+ snapshot.val())
+          alert("writen")
         })
       }
       app.read = function () {
