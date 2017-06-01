@@ -44,7 +44,9 @@
           updates['/user-tests/' + firebase.auth().currentUser.uid + '/' + newTestKey] = 1;
         }
         updates['/tests/' + newTestKey] = 1;
-        alert("write: "+firebase.database().ref().update(updates))
+        firebase.database().ref().update(updates).then(function(snapshot) {
+          alert("write: "+ snapshot.val())
+        })
       }
       app.read = function () {
         firebase.database().ref('/read/').once('value').then(function(snapshot) {
