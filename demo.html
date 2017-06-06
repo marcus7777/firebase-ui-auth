@@ -53,6 +53,8 @@
       app.read = function () {
         firebase.database().ref('/read/').once('value').then(function(snapshot) {
           alert("read: "+ snapshot.val())
+        }).catch(function(reason){
+          alert("not reading", reason)
         })
       }
       
