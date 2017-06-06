@@ -38,12 +38,12 @@
         app.$.auth.signOut()
       }
       app.write = function () {
-        var newTestKey = firebase.database().ref().child('posts').push().key;
+        var newTestKey = firebase.database().ref().child('tests').push().key;
         var updates = {}
         if (firebase.auth().currentUser) {
-          updates['/user-tests/' + firebase.auth().currentUser.uid + '/' + newTestKey] = 1;
+          updates['user-tests/' + firebase.auth().currentUser.uid + '/' + newTestKey] = 1;
         }
-        updates['/tests/' + newTestKey] = 1;
+        updates['tests/' + newTestKey] = 1;
         firebase.database().ref().update(updates).then(function() {
           alert("writen")
         }).catch(function(reason){
@@ -51,7 +51,7 @@
         })
       }
       app.read = function () {
-        firebase.database().ref('/read/').once('value').then(function(snapshot) {
+        firebase.database().ref('read/').once('value').then(function(snapshot) {
           alert("read: "+ snapshot.val())
         }).catch(function(reason){
           alert("not reading", reason)
