@@ -29,9 +29,7 @@
   <body>
     <h3>firebase-ui-auth Demo</h3>
     <template is="dom-bind" id="app">
-      <template is="dom-if" if="[[!user]]">
-        1) Hi chiz please login <br>
-      </template>
+      1) Hi chiz please login <br>
       <firebase-ui-auth user="[[user]]" sign-in-success-url="" id="auth"></firebase-ui-auth>
       <template is="dom-if" if="[[user]]">
         2) Now run test read and write <br>
