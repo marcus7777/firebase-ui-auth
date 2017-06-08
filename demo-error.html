@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset='utf-8'>
+<html>
+  <head>
+    <title>firebase-ui-auth demo</title>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="firebase-ui-auth.html">
+    <!-- working
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    -->
+    <!-- not working -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
+    
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyClpM6c2EunRvJN1qJqzpcUjU3FcaQy5SI",
+        authDomain: "open-elements-732a1.firebaseapp.com",
+        databaseURL: "https://open-elements-732a1.firebaseio.com",
+        projectId: "open-elements-732a1",
+        storageBucket: "open-elements-732a1.appspot.com",
+        messagingSenderId: "227430047732",
+      }
+      firebase.initializeApp(config);
+    </script>
+  </head>
+  <body>
+    <h3>firebase-ui-auth Demo</h3>
+    <template is="dom-bind" id="app">
+      <template is="dom-if" if="{{!user}}">
+        1) login <br>
+      </template>
+      <firebase-ui-auth user="{{user}}" sign-in-success-url="" id="auth"></firebase-ui-auth>
+      <template is="dom-if" if="{{user}}">
+        2) run test read and write <br>
+        your are logged in as :
+        [[user.displayName]] <br>
+        [[user.uid]]
+        <button on-tap="out"> logout </button>
+      </template>
+      <p>
+        <button on-tap="write"> write test</button>
+        <button on-tap="read">  read  test</button>
+      </p>
+    </template>
+    <script>
+      var app = document.querySelector('#app');
+      app.out = function () {
+        app.$.auth.signOut()
+      }
+      app.write = function () {
+        var newTestKey = firebase.database().ref().child('tests').push().key;
+        var updates = {}
+        if (firebase.auth().currentUser) {
+          updates['user-tests/' + firebase.auth().currentUser.uid + '/' + newTestKey] = 1;
+        }
+        updates['tests/' + newTestKey] = 1;
+        firebase.database().ref().update(updates).then(function() {
+          alert("writen")
+        }).catch(function(reason){
+          alert("not writen", reason)
+        })
+      }
+      app.read = function () {
+        firebase.database().ref('read/').once('value').then(function(snapshot) {
+          alert("read: "+ snapshot.val())
+        }).catch(function(reason){
+          alert("not reading", reason)
+        })
+      }
+      
+    </script>
+  </body>
+</html>
