@@ -5,14 +5,14 @@
     <title>firebase-ui-auth demo</title>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="firebase-ui-auth.html">
-    <!-- working
+
     <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
-    -->
-    <!-- not working -->
+
+    <!-- not working 
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
-    
+    -->
     <script>
       // Initialize Firebase
       var config = {
@@ -29,12 +29,12 @@
   <body>
     <h3>firebase-ui-auth Demo</h3>
     <template is="dom-bind" id="app">
-      <template is="dom-if" if="{{!user}}">
-        1) login <br>
+      <template is="dom-if" if="[[!user]]">
+        1) Hi chiz please login <br>
       </template>
-      <firebase-ui-auth user="{{user}}" sign-in-success-url="" id="auth"></firebase-ui-auth>
-      <template is="dom-if" if="{{user}}">
-        2) run test read and write <br>
+      <firebase-ui-auth user="[[user]]" sign-in-success-url="" id="auth"></firebase-ui-auth>
+      <template is="dom-if" if="[[user]]">
+        2) Now run test read and write <br>
         your are logged in as :
         [[user.displayName]] <br>
         [[user.uid]]
@@ -44,6 +44,9 @@
         <button on-tap="write"> write test</button>
         <button on-tap="read">  read  test</button>
       </p>
+      <template is="dom-if" if="[[tested]]">
+        3) Thank you, Chiz now test on <a href="demo.html"> here </a> <br>
+      </template>
     </template>
     <script>
       var app = document.querySelector('#app');
@@ -51,6 +54,7 @@
         app.$.auth.signOut()
       }
       app.write = function () {
+        app.tested = true
         var newTestKey = firebase.database().ref().child('tests').push().key;
         var updates = {}
         if (firebase.auth().currentUser) {
