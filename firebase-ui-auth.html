@@ -159,9 +159,14 @@
         signInOptions: signInOptions,
         tosUrl: getAbsoluteUrl(tosUrl),
       }
-      var ui = new firebaseui.auth.AuthUI(firebase.auth())
-      ui.start(this.$["firebaseui-auth-container"], uiConfig)
-      return ui
+      try {
+        var ui = new firebaseui.auth.AuthUI(firebase.auth())
+        ui.start(this.$["firebaseui-auth-container"], uiConfig)
+        return ui
+      } catch(e) {
+        console.log(e)                                                                                                                               
+        window.location.reload() 
+      }
     },
     signOut: function() {
       firebase.auth().signOut()
