@@ -116,7 +116,7 @@
               if (user.providerData.length && !user.photoURL) {
                 photoURL = user.providerData[0].photoURL || that.defaultPhotoURL
               }
-              user.getToken().then(function(accessToken) {
+              user.getIdToken().then(function(accessToken) {
                 that.user = {
                   uid: uid,
                   displayName: "",
