@@ -32,6 +32,10 @@
       photo:{
         notify:true,
       },
+      bugfix:{
+        type:Boolean,
+        value:false,
+      },
       getPhoto:{
         type:Boolean,
         value:false,
@@ -165,7 +169,7 @@
         return ui
       } catch(e) {
         console.log(e)                                                                                                                               
-      //  window.location.reload() 
+        if (this.bugfix) = window.location.reload() 
       }
     },
     signOut: function() {
