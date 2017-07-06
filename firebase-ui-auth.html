@@ -169,7 +169,9 @@
         return ui
       } catch(e) {
         console.log(e)                                                                                                                               
-        if (this.bugfix) = window.location.reload() 
+        if (this.bugfix) {
+          window.location.reload()
+        }
       }
     },
     signOut: function() {
