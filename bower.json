@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "polymer": "#1.11.1",
-    "firebaseui": "firebase/firebaseui-web#^2.2.1",
+    "firebaseui": "firebase/firebaseui-web#^2.5.1",
     "image-base64": "marcus7777/image-base64"
   }
 }
